@@ -597,6 +597,7 @@ GameObject:
   - component: {fileID: 457262039}
   - component: {fileID: 457262042}
   - component: {fileID: 457262043}
+  - component: {fileID: 457262044}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -738,6 +739,30 @@ MonoBehaviour:
   jumpPower: 2
   gravity: -9.81
   turnSpeed: 30
+--- !u!114 &457262044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457262037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9af67edc944d8a4eaba289f3fca29bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabButton: 8192
+  rightHandController: {fileID: 150075265}
+  vrCamera: {fileID: 115465992}
+  grabbableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  remoteGrabDistance: 20
+  minDistanceFromCollision: 0.1
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  verticalLiftDistanceMultiplier: 1
 --- !u!1 &468832833
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,10 +1009,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 982609220}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1545327178}
     - targetCorrespondingSourceObject: {fileID: 100006, guid: 126d619cf4daa52469682f85c1378b4a,
         type: 3}
       insertIndex: -1
@@ -2038,36 +2059,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 982609220}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1545327174 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a,
-    type: 3}
-  m_PrefabInstance: {fileID: 507491167}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1545327178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545327174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7b7ecdcf9b796b4fa7dd879f2f102ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabButton: 8192
-  rightHandController: {fileID: 150075265}
-  vrCamera: {fileID: 115465992}
-  grabbableLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  remoteGrabDistance: 10
-  minDistanceFromCollision: 0.1
-  environmentLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  verticalLiftDistanceMultiplier: 1
 --- !u!1 &1548358037
 GameObject:
   m_ObjectHideFlags: 0
