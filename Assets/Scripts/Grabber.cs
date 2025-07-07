@@ -21,7 +21,7 @@ public class Grabber : MonoBehaviour
     private float currentDistanceToCamera; // 카메라로부터 물체가 유지하려는 목표 거리 (동적으로 변화)
     private Quaternion initialRotation; // 물체 잡을 때의 카메라 상대 회전 오프셋
     private Vector3 initialPosition; // 물체 잡을 때 컨트롤러의 로컬 위치
-
+    
     void Update()
     {
         if (currentGrabbedObject == null)
