@@ -1,3 +1,4 @@
+using OutlineFx;
 using UnityEngine;
 
 public class GrabbableObject : MonoBehaviour, IPerspectiveScalable
@@ -10,14 +11,12 @@ public class GrabbableObject : MonoBehaviour, IPerspectiveScalable
 
     private Rigidbody rb;
     private PerspectiveScaler perspectiveScaler;
-    private HighlightEffect highlightEffect; // HighlightEffect 참조 추가
-
+    private OutlineFx.OutlineFx outlineFx;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         perspectiveScaler = GetComponent<PerspectiveScaler>();
-        highlightEffect = GetComponent<HighlightEffect>(); // HighlightEffect 참조 가져오기
-
+        outlineFx = GetComponent<OutlineFx.OutlineFx>();
     }
 
     public void OnGrab(Vector3 initialScale, float initialDistanceToCamera)
@@ -27,11 +26,7 @@ public class GrabbableObject : MonoBehaviour, IPerspectiveScalable
         InitialGrabScale = initialScale;
         InitialGrabDistanceToCamera = initialDistanceToCamera;
         IsScalingEnabled = true;
-
-        if (highlightEffect != null)
-        {
-            highlightEffect.ApplyHighlight(); // 잡았을 때 하이라이트 적용
-        }
+        outlineFx.enabled = true;
     }
 
     public void OnRelease(Vector3 releaseVelocity, Vector3 releaseAngularVelocity)
@@ -46,10 +41,7 @@ public class GrabbableObject : MonoBehaviour, IPerspectiveScalable
         // 잡는 상태(isGrabbed)는 PlayerGrabber에서 false로 만들 것입니다.
         // OnCollisionEnter에서 isScalingEnabled를 false로 변경합니다.
 
-        if (highlightEffect != null)
-        {
-            highlightEffect.RemoveHighlight(); // 놓았을 때 하이라이트 제거
-        }
+        outlineFx.enabled = false;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -61,10 +53,6 @@ public class GrabbableObject : MonoBehaviour, IPerspectiveScalable
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
-            }
-            if (highlightEffect != null)
-            {
-                highlightEffect.RemoveHighlight(); // 충돌하여 스케일링이 멈출 때도 하이라이트 제거
             }
         }
     }

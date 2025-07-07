@@ -1,22 +1,62 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMove : MonoBehaviour
 {
-    public float moveSpeed = 3.0f;
-    public float rotationSpeed = 90.0f; // degrees per second
+    public float speed = 5f;
+    public float gravity = -9.81f;
+    public float jumpHeight = 2f;
 
-    public Transform playerRig;
+    private CharacterController cc;
+    private Vector3 velocity;
+    private bool isGrounded;
+
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+
+    // <-- ì¶”ê°€
+    public Vector3 Velocity
+    {
+        get { return velocity; }
+        set { velocity = value; }
+    }
+    // -->
+
+    void Start()
+    {
+        cc = GetComponent<CharacterController>();
+    }
 
     void Update()
     {
-        // ¿ÞÂÊ ½æ½ºÆ½À¸·Î ÀÌµ¿ (OVRInput »ç¿ë)
-        Vector2 leftThumbstick = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
-        Vector3 moveDirection = playerRig.right * leftThumbstick.x + playerRig.forward * leftThumbstick.y;
-        playerRig.position += moveDirection * moveSpeed * Time.deltaTime;
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        // ¿À¸¥ÂÊ ½æ½ºÆ½À¸·Î ¸ö È¸Àü (OVRInput »ç¿ë)
-        Vector2 rightThumbstick = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
-        float yawRotation = rightThumbstick.x * rotationSpeed * Time.deltaTime;
-        playerRig.Rotate(Vector3.up, yawRotation);
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        Vector3 move = transform.right * h + transform.forward * v;
+        cc.Move(move * speed * Time.deltaTime);
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        // 4. ì¤‘ë ¥ ì ìš©
+        velocity.y += gravity * Time.deltaTime;
+
+        if (isGrounded)
+        {
+            velocity.x *= 0.93f; // 0.9~0.98 ì‚¬ì´ì—ì„œ ì¡°ì ˆ
+            velocity.z *= 0.93f;
+        }
+
+
+        cc.Move(velocity * Time.deltaTime);
     }
 }
