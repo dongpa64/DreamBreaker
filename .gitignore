@@ -102,3 +102,8 @@ Packages/packages-lock.json
 Assets/Settings/URP-HighFidelity-Renderer.asset
 Assets/Settings/URP-HighFidelity-Renderer.asset
 Assets/Settings/URP-HighFidelity-Renderer.asset
+Assets/Scenes/PortalScene.unity
+Assets/Scenes/PortalScene.unity
+Packages/manifest.json
+Packages/packages-lock.json
+ProjectSettings/VFXManager.asset
