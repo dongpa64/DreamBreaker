@@ -27,7 +27,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     void Start()
     {
-
         statusText.text = "Photon Login...";
         joinButton.interactable = false;
         PhotonNetwork.ConnectUsingSettings();
