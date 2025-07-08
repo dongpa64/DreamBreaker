@@ -20,8 +20,7 @@ public class Portal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             CharacterController cc = other.GetComponent<CharacterController>();
-            PlayerMove playerMove = other.GetComponent<PlayerMove>();
-            if (cc != null && playerMove != null)
+            if (cc != null)
             {
                 cc.enabled = false;
 
@@ -34,14 +33,6 @@ public class Portal : MonoBehaviour
                 forward.y = 0f;
                 if (forward != Vector3.zero)
                     other.transform.rotation = Quaternion.LookRotation(forward);
-
-                // 3. 속도 변환(포탈2 스타일: 입구→출구 회전 반영)
-                Quaternion rotationDelta = Quaternion.FromToRotation(transform.forward, -destinationPortal.forward);
-                Vector3 oldVelocity = playerMove.Velocity;
-                Vector3 newVelocity = rotationDelta * oldVelocity;
-
-                // 4. 포탈 출구 감속 (미끄러짐 완화)
-                playerMove.Velocity = newVelocity * 0.93f; // 0.9~0.98로 미끄러짐 정도 조절
 
                 cc.enabled = true;
             }

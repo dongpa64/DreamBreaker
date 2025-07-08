@@ -97,3 +97,8 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+Packages/manifest.json
+Packages/packages-lock.json
+Assets/Settings/URP-HighFidelity-Renderer.asset
+Assets/Settings/URP-HighFidelity-Renderer.asset
+Assets/Settings/URP-HighFidelity-Renderer.asset
