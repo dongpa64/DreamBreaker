@@ -8,6 +8,8 @@ public class PortalShooter : MonoBehaviour
     public GameObject bluePortalprefab;
     public GameObject orangePortalprefab;
 
+    public Transform cameraAimPointer; // 인스펙터에서 할당(작은 구, Crosshair 등)
+
     private GameObject bluePortalInstance;
     private GameObject orangePortalInstance;
 
@@ -16,9 +18,8 @@ public class PortalShooter : MonoBehaviour
     private PlayerMovement playerMovement;
 
     [Header("포탈 쿼드 크기(단위: 미터)")]
-    public Vector2 portalSize = new Vector2(1.0f, 2.0f); // (폭, 높이) 쿼드의 실제 크기
+    public Vector2 portalSize = new Vector2(1.0f, 2.0f);
 
-    // ** 번갈아 설치용 변수 **
     private bool useBlueNext = true;
 
     void Start()
@@ -28,53 +29,79 @@ public class PortalShooter : MonoBehaviour
 
     void Update()
     {
-        // 플랫폼 현재 상태 가져오기
         var platform = playerMovement ? playerMovement.currentPlatform : PlatformType.PC;
 
+        // ===== 에임 포인터(HMD 시야 정중앙 방향) 실시간 위치 이동 =====
+        if (cameraAimPointer != null && Camera.main != null)
+        {
+            float rayLength = 5.0f;
+            Vector3 camPos = Camera.main.transform.position;
+            Vector3 camDir = Camera.main.transform.forward;
+
+            RaycastHit hit;
+            if (Physics.Raycast(camPos, camDir, out hit, rayLength, portalSurfaceMask))
+            {
+                cameraAimPointer.position = hit.point;
+            }
+            else
+            {
+                cameraAimPointer.position = camPos + camDir * rayLength;
+            }
+            cameraAimPointer.forward = camDir;
+            Debug.DrawRay(camPos, camDir * rayLength, Color.cyan, 0f, false);
+        }
+
+        // ===== 입력 처리(PC/VR) =====
         if (platform == PlatformType.PC)
         {
-            // 우클릭(마우스 오른쪽 버튼)만 사용
             if (Input.GetMouseButtonDown(1))
             {
                 if (useBlueNext)
-                {
                     TryPlacePortal(ref bluePortalInstance, bluePortalprefab, platform);
-                }
                 else
-                {
                     TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
-                }
-                useBlueNext = !useBlueNext; // 설치 후 토글
+
+                useBlueNext = !useBlueNext;
             }
         }
-        else // Oculus 또는 Vive일 때 VR 컨트롤러 사용 (기존 방식 유지)
+        else // VR (오큘러스 등)
         {
-            bool bluePortalPressed = ARAVRInput.GetDown(ARAVRInput.Button.One, ARAVRInput.Controller.LTouch);   // X 버튼
-            bool orangePortalPressed = ARAVRInput.GetDown(ARAVRInput.Button.Two, ARAVRInput.Controller.LTouch); // Y 버튼
+            bool triggerPressed = ARAVRInput.GetDown(ARAVRInput.Button.IndexTrigger, ARAVRInput.Controller.LTouch);
 
-            if (bluePortalPressed)
-                TryPlacePortal(ref bluePortalInstance, bluePortalprefab, platform);
-            if (orangePortalPressed)
-                TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
+            if (triggerPressed)
+            {
+                if (useBlueNext)
+                    TryPlacePortal(ref bluePortalInstance, bluePortalprefab, platform);
+                else
+                    TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
+
+                useBlueNext = !useBlueNext;
+            }
         }
     }
 
+    // ==== 포탈 설치: PC/VR 모두 카메라 정면 Ray ====
     void TryPlacePortal(ref GameObject portalInstance, GameObject portalPrefab, PlatformType platform)
     {
         Ray ray;
 
-        // PC는 마우스 위치에서 레이, VR은 오른손 컨트롤러에서 레이
         if (platform == PlatformType.PC)
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         }
-        else // VR 환경
+        else // VR: HMD(카메라) 정중앙 방향으로 Ray
         {
-            Transform rightHand = FindFirstObjectByType<RightHand>()?.transform;
-            if (rightHand != null)
-                ray = new Ray(rightHand.position, rightHand.forward);
+            if (Camera.main != null)
+            {
+                Vector3 camPos = Camera.main.transform.position;
+                Vector3 camDir = Camera.main.transform.forward;
+                ray = new Ray(camPos, camDir);
+            }
             else
-                ray = new Ray(ARAVRInput.RHandPosition, ARAVRInput.RHandDirection);
+            {
+                Debug.LogWarning("Camera.main을 찾을 수 없습니다!");
+                return;
+            }
         }
 
         RaycastHit hit;
@@ -95,7 +122,6 @@ public class PortalShooter : MonoBehaviour
                 center - right * halfW - up * halfH,
             };
 
-            // 네 점 모두에서 짧은 Raycast (0.1m) → 벽일 때만 설치
             bool canInstall = true;
             foreach (var c in corners)
             {
@@ -113,7 +139,6 @@ public class PortalShooter : MonoBehaviour
                 return;
             }
 
-            // === 포탈 설치 ===
             Vector3 position = center;
             Quaternion rotation = Quaternion.LookRotation(-hit.normal);
 
