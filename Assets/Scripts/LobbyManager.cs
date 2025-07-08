@@ -32,12 +32,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.AutomaticallySyncScene = true;
     }
+    
 
     // Photon 辑滚 立加 己傍
     public override void OnConnectedToMaster()
     {
         statusText.text = "Photon Linked!";
         joinButton.interactable = true;
+        OnClickJoin();
     }
 
     // 辑滚 立加 秦力
@@ -68,7 +70,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         statusText.text = "Success!";
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             photonView.RPC("MoveScene", RpcTarget.All);
     }
 
