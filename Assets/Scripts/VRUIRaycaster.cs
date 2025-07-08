@@ -10,8 +10,6 @@ public class VRUIRaycaster : MonoBehaviour
     private LineRenderer lineRenderer;
     private PointerEventData pointerEventData; // 현재는 사용하지 않지만, 향후 UI 이벤트 시스템 확장 시 유용
 
-    // LobbyManager 참조 추가
-    public LobbyManager lobbyManager; // 인스펙터에서 할당
 
     // 현재 바라보고 있는 UI 요소 저장
     private GameObject currentLookAtUI = null;
@@ -69,13 +67,7 @@ public class VRUIRaycaster : MonoBehaviour
                     if (hitButton.interactable)
                     {
                         hitButton.onClick.Invoke(); // 버튼의 클릭 이벤트 직접 호출
-                        Debug.Log($"버튼 클릭: {hitButton.name}");
 
-                        // 만약 LobbyManager의 OnClickJoin 버튼이라면 특별히 처리
-                        if (hitButton == lobbyManager.joinButton)
-                        {
-                            
-                        }
                     }
                 }
             }
