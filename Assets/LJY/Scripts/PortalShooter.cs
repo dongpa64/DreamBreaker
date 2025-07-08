@@ -16,8 +16,9 @@ public class PortalShooter : MonoBehaviour
     private PlayerMovement playerMovement;
 
     [Header("포탈 쿼드 크기(단위: 미터)")]
-    public Vector2 portalSize = new Vector2(1.0f, 2.0f);
+    public Vector2 portalSize = new Vector2(1.0f, 2.0f); // (폭, 높이) 쿼드의 실제 크기
 
+    // ** 번갈아 설치용 변수 **
     private bool useBlueNext = true;
 
     void Start()
@@ -27,33 +28,34 @@ public class PortalShooter : MonoBehaviour
 
     void Update()
     {
+        // 플랫폼 현재 상태 가져오기
         var platform = playerMovement ? playerMovement.currentPlatform : PlatformType.PC;
 
         if (platform == PlatformType.PC)
         {
+            // 우클릭(마우스 오른쪽 버튼)만 사용
             if (Input.GetMouseButtonDown(1))
             {
                 if (useBlueNext)
+                {
                     TryPlacePortal(ref bluePortalInstance, bluePortalprefab, platform);
+                }
                 else
+                {
                     TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
-
-                useBlueNext = !useBlueNext;
+                }
+                useBlueNext = !useBlueNext; // 설치 후 토글
             }
         }
-        else // VR (Oculus, Vive)
+        else // Oculus 또는 Vive일 때 VR 컨트롤러 사용 (기존 방식 유지)
         {
-            bool triggerPressed = ARAVRInput.GetDown(ARAVRInput.Button.IndexTrigger, ARAVRInput.Controller.LTouch);
+            bool bluePortalPressed = ARAVRInput.GetDown(ARAVRInput.Button.One, ARAVRInput.Controller.LTouch);   // X 버튼
+            bool orangePortalPressed = ARAVRInput.GetDown(ARAVRInput.Button.Two, ARAVRInput.Controller.LTouch); // Y 버튼
 
-            if (triggerPressed)
-            {
-                if (useBlueNext)
-                    TryPlacePortal(ref bluePortalInstance, bluePortalprefab, platform);
-                else
-                    TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
-
-                useBlueNext = !useBlueNext;
-            }
+            if (bluePortalPressed)
+                TryPlacePortal(ref bluePortalInstance, bluePortalprefab, platform);
+            if (orangePortalPressed)
+                TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
         }
     }
 
@@ -61,13 +63,18 @@ public class PortalShooter : MonoBehaviour
     {
         Ray ray;
 
+        // PC는 마우스 위치에서 레이, VR은 오른손 컨트롤러에서 레이
         if (platform == PlatformType.PC)
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         }
-        else // VR 환경(왼손 컨트롤러)
+        else // VR 환경
         {
-            ray = new Ray(ARAVRInput.LHandPosition, ARAVRInput.LHandDirection);
+            Transform rightHand = FindFirstObjectByType<RightHand>()?.transform;
+            if (rightHand != null)
+                ray = new Ray(rightHand.position, rightHand.forward);
+            else
+                ray = new Ray(ARAVRInput.RHandPosition, ARAVRInput.RHandDirection);
         }
 
         RaycastHit hit;
@@ -88,6 +95,7 @@ public class PortalShooter : MonoBehaviour
                 center - right * halfW - up * halfH,
             };
 
+            // 네 점 모두에서 짧은 Raycast (0.1m) → 벽일 때만 설치
             bool canInstall = true;
             foreach (var c in corners)
             {
@@ -105,6 +113,7 @@ public class PortalShooter : MonoBehaviour
                 return;
             }
 
+            // === 포탈 설치 ===
             Vector3 position = center;
             Quaternion rotation = Quaternion.LookRotation(-hit.normal);
 
