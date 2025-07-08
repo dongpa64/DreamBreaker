@@ -1,5 +1,5 @@
-#define PC
-//#define Oculus
+//#define PC
+#define Oculus
 
 using UnityEngine;
 
@@ -26,13 +26,13 @@ public class PGrabber : MonoBehaviour
         if (grabbedObject == null)
             UpdateGrabberPositionByMouse();
 
-        if (Input.GetMouseButtonDown(2))
+        if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Grab ½ÃµµµÊ!");
             TryGrab();
         }
 
-        if (Input.GetMouseButtonUp(2))
+        if (Input.GetMouseButtonUp(0))
         {
             Release();
         }
