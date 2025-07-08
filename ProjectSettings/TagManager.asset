@@ -15,9 +15,9 @@ TagManager:
   - Grabbable
   - Wall
   - Clickable
-  - 
-  - 
-  - 
+  - Ground
+  - Player
+  - PortalSurface
   - 
   - 
   - 

@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 4627037817163822597}
   - component: {fileID: 1307541330246563948}
   - component: {fileID: 8281292059871278598}
-  - component: {fileID: 3845973541207050578}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: PortalBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,23 +70,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destinationPortal: {fileID: 5645062609162934213, guid: 83576567df35a864d914c4bf3381972e,
     type: 3}
---- !u!114 &3845973541207050578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771192861429878327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 989155de708d1b547ac97d6f9cf4c860, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linkedPortal: {fileID: 7063082612409053949, guid: 83576567df35a864d914c4bf3381972e,
-    type: 3}
-  screen: {fileID: 1000618120466974472}
-  portalCamera: {fileID: 6942601901391101850}
-  playerCamera: {fileID: 0}
 --- !u!1 &3310523177711400192
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +82,7 @@ GameObject:
   - component: {fileID: 8905635288196829467}
   - component: {fileID: 1000618120466974472}
   - component: {fileID: 5221358141054665356}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: PortalVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +190,7 @@ GameObject:
   - component: {fileID: 6942601901391101850}
   - component: {fileID: 4041656100401838277}
   - component: {fileID: 6940344223629004595}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: PortalCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
