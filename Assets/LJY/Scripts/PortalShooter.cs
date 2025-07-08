@@ -162,4 +162,5 @@ public class PortalShooter : MonoBehaviour
             orangePortal.destinationPortal = bluePortalInstance.transform;
         }
     }
+
 }
