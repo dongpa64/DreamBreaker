@@ -18,8 +18,8 @@ TagManager:
   - Ground
   - Player
   - PortalSurface
-  - 
-  - 
+  - MaskLayer
+  - MaskRender
   - 
   - 
   - 
