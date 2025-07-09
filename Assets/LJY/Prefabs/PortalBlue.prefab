@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 1307541330246563948}
   - component: {fileID: 8281292059871278598}
   - component: {fileID: 8984168961789151763}
+  - component: {fileID: 4533882876989707879}
   m_Layer: 11
   m_Name: PortalBlue
   m_TagString: Untagged
@@ -196,6 +197,20 @@ MonoBehaviour:
   screen: {fileID: 1000618120466974472}
   portalCamera: {fileID: 5638881424654193588}
   playerCamera: {fileID: 0}
+--- !u!114 &4533882876989707879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771192861429878327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3212fb630e00cf4badb669583e7d4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portalMat: {fileID: 2100000, guid: 78015caf5daa77a49a5b3635e760c887, type: 2}
+  scrollSpeed: 0.1
 --- !u!1 &3310523177711400192
 GameObject:
   m_ObjectHideFlags: 0
