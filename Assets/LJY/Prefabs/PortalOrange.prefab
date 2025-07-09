@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 8846937783732494687}
   - component: {fileID: 8767516123384252601}
   - component: {fileID: 6023826210375469489}
+  - component: {fileID: 8476297295826737778}
   m_Layer: 11
   m_Name: PortalOrange
   m_TagString: Untagged
@@ -196,6 +197,20 @@ MonoBehaviour:
   screen: {fileID: 8277928291067493437}
   portalCamera: {fileID: 631778768265819068}
   playerCamera: {fileID: 0}
+--- !u!114 &8476297295826737778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4174940616298587962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3212fb630e00cf4badb669583e7d4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portalMat: {fileID: 2100000, guid: 30b61c9c14db72244a3c6ee31d97f416, type: 2}
+  scrollSpeed: 0.1
 --- !u!1 &7630561566617152753
 GameObject:
   m_ObjectHideFlags: 0
