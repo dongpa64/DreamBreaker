@@ -731,7 +731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d9007a0a9e8784eb6f4ff16d1d68fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 2
+  playerCount: 2
+  sceneName: YMK_Scean
   joinButton: {fileID: 1483639873}
   statusText: {fileID: 224459705}
 --- !u!4 &553596394
