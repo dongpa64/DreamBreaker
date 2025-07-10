@@ -7,6 +7,7 @@ using TMPro;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+    public int id = 1;
     LobbyManager Instance { get; set; }
     [Header("UI")]
     public Button joinButton;         // 입장 버튼
@@ -58,7 +59,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         statusText.text = "Success!";
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == id)
         {
             if(PhotonNetwork.IsMasterClient) 
                 photonView.RPC("MoveScene", RpcTarget.All);

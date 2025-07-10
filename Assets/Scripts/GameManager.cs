@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    public GameObject playerPrefab;
     public Transform[] spawnPoints;
+    public PerspectiveScaler scaler;
     public static GameManager Instance { get; private set; }
     private void Awake()
     {
@@ -43,11 +43,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             // 스폰 포인트가 없거나 부족할 경우 기본 위치 사용
             spawnPosition = new Vector3(Random.Range(-5f, 5f), 1f, Random.Range(-5f, 5f));
         }
-
+        
         // PhotonNetwork.Instantiate를 사용하여 네트워크 플레이어 오브젝트 생성
-        PhotonNetwork.Instantiate("Player", spawnPosition, Quaternion.identity);
+        var obj = PhotonNetwork.Instantiate("Player", spawnPosition, Quaternion.identity);
+        var vrCam = obj.transform.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
+        scaler.SetVrCamera(vrCam);
     }
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount <= 1)
         {
