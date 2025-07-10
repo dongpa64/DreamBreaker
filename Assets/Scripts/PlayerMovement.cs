@@ -5,6 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    
     public enum PlatformType { PC, Oculus, Vive }
     public PlatformType currentPlatform = PlatformType.PC;
 

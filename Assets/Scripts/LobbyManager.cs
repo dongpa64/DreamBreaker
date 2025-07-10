@@ -7,24 +7,12 @@ using TMPro;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
-    public static LobbyManager Instance { get; private set; }
+    LobbyManager Instance { get; set; }
     [Header("UI")]
     public Button joinButton;         // 입장 버튼
     public TMP_Text statusText;           // 안내 메시지
 
-    void Awake()
-    {
-        // 싱글톤 인스턴스 설정
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject); // 이미 인스턴스가 있으면 자신을 파괴
-        }
-    }
+    
     void Start()
     {
         statusText.text = "Photon Login...";
@@ -71,7 +59,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         statusText.text = "Success!";
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-            photonView.RPC("MoveScene", RpcTarget.All);
+        {
+            if(PhotonNetwork.IsMasterClient) 
+                photonView.RPC("MoveScene", RpcTarget.All);
+        }
     }
 
     // 다른 플레이어가 입장했을 때(2명 됐을 때)
@@ -79,7 +70,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         statusText.text = "두 번째 플레이어 입장!\n튜토리얼 맵 이동!";
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-            photonView.RPC("MoveScene", RpcTarget.All);
+        {
+            if (PhotonNetwork.IsMasterClient)
+                photonView.RPC("MoveScene", RpcTarget.All);
+        }
     }
 
     [PunRPC]
