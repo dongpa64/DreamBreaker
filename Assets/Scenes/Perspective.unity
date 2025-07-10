@@ -1453,8 +1453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe5a437a46aee02478d48c9b3120c27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 2284441910923290513, guid: 5cdb854c4c792394782a5becb68181fc,
-    type: 3}
   spawnPoints:
   - {fileID: 842930805}
   - {fileID: 1311044943}
@@ -1688,7 +1686,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1421110757}

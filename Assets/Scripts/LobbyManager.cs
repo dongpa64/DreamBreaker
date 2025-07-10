@@ -7,7 +7,8 @@ using TMPro;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
-    public int id = 1;
+    public int playerCount = 2;
+    public string sceneName = "Perspective";
     LobbyManager Instance { get; set; }
     [Header("UI")]
     public Button joinButton;         // 입장 버튼
@@ -59,7 +60,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         statusText.text = "Success!";
-        if (PhotonNetwork.CurrentRoom.PlayerCount == id)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount)
         {
             if(PhotonNetwork.IsMasterClient) 
                 photonView.RPC("MoveScene", RpcTarget.All);
@@ -70,7 +71,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         statusText.text = "두 번째 플레이어 입장!\n튜토리얼 맵 이동!";
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount)
         {
             if (PhotonNetwork.IsMasterClient)
                 photonView.RPC("MoveScene", RpcTarget.All);
@@ -83,6 +84,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (statusText != null)
             statusText.text = "Go!";
         if(photonView.IsMine)
-            PhotonNetwork.LoadLevel("Perspective");
+            PhotonNetwork.LoadLevel(sceneName);
     }
 }
