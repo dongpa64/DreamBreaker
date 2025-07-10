@@ -3,12 +3,13 @@ using Photon.Pun;
 
 public class PlayerCharacter : MonoBehaviourPun
 {
-    
+    [SerializeField] GameObject cameraRig;
     private void Awake()
-    {
-        var camera = transform.Find("XR Origin");
-        if(!photonView.IsMine)
-            camera.gameObject.SetActive(false);
+    {       
+        if(photonView.IsMine)
+        {
+            cameraRig.gameObject.SetActive(true);
+        }
 
     }
 }
