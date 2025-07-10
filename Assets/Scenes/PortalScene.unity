@@ -434,6 +434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightningGun
       objectReference: {fileID: 0}
+    - target: {fileID: 1153593913252770, guid: ab652dc037ef5dc4cba99be2daae3ccb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4777356181658312, guid: ab652dc037ef5dc4cba99be2daae3ccb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.7
@@ -812,32 +816,32 @@ PrefabInstance:
     - target: {fileID: 8625519329669608691, guid: fe99442599baebf41bdf728ba0641f8d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8625519329669608691, guid: fe99442599baebf41bdf728ba0641f8d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8625519329669608691, guid: fe99442599baebf41bdf728ba0641f8d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8625519329669608691, guid: fe99442599baebf41bdf728ba0641f8d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.67111117
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8625519329669608691, guid: fe99442599baebf41bdf728ba0641f8d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.08
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 8625519329669608691, guid: fe99442599baebf41bdf728ba0641f8d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6999998
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8625519329669608691, guid: fe99442599baebf41bdf728ba0641f8d,
         type: 3}
@@ -879,6 +883,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9043868435053460035, guid: fe99442599baebf41bdf728ba0641f8d,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f171ed564013f0843b7bcfbb5a98c3dc, type: 2}
     - target: {fileID: 9129934048032975258, guid: fe99442599baebf41bdf728ba0641f8d,
         type: 3}
       propertyPath: m_Name
