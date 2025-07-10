@@ -7,8 +7,17 @@ public class PortalShooter : MonoBehaviour
 {
     public GameObject bluePortalprefab;
     public GameObject orangePortalprefab;
+    public Transform cameraAimPointer;
 
-    public Transform cameraAimPointer; // 인스펙터에서 할당(작은 구, Crosshair 등)
+    [Header("총 모델 오브젝트 (PortalGun)")]
+    public GameObject portalGunModel; // Inspector에서 할당
+
+    [Header("포탈 총구 VFX (SetActive 방식)")]
+    public GameObject muzzleVFX; // Muzzle 자식에 배치된 VFX 프리팹
+    public float vfxDuration = 0.5f; // 이펙트가 나오는 시간(필요시 조정)
+
+    [Header("포탈 발사 사운드")]
+    public AudioSource shootSfx; // Inspector에서 AudioSource 할당
 
     private GameObject bluePortalInstance;
     private GameObject orangePortalInstance;
@@ -25,13 +34,31 @@ public class PortalShooter : MonoBehaviour
     void Start()
     {
         playerMovement = FindFirstObjectByType<PlayerMovement>();
+
+        // 총과 PortalShooter 비활성화
+        if (portalGunModel != null)
+            portalGunModel.SetActive(false);
+
+        // 시작시 VFX 꺼두기
+        if (muzzleVFX != null)
+            muzzleVFX.SetActive(false);
+
+        enabled = false;
+    }
+
+    // 아이템 먹을 때 호출!
+    public void ActivatePortalShooter()
+    {
+        if (portalGunModel != null)
+            portalGunModel.SetActive(true);
+        enabled = true;
     }
 
     void Update()
     {
         var platform = playerMovement ? playerMovement.currentPlatform : PlatformType.PC;
 
-        // ===== 에임 포인터(HMD 시야 정중앙 방향) 실시간 위치 이동 =====
+        // ===== 에임 포인터 실시간 위치 이동 =====
         if (cameraAimPointer != null && Camera.main != null)
         {
             float rayLength = 5.0f;
@@ -61,6 +88,9 @@ public class PortalShooter : MonoBehaviour
                 else
                     TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
 
+                // 발사 사운드 & 총구 이펙트!
+                PlayShootEffects();
+
                 useBlueNext = !useBlueNext;
             }
         }
@@ -75,9 +105,31 @@ public class PortalShooter : MonoBehaviour
                 else
                     TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
 
+                // 발사 사운드 & 총구 이펙트!
+                PlayShootEffects();
+
                 useBlueNext = !useBlueNext;
             }
         }
+    }
+
+    void PlayShootEffects()
+    {
+        if (shootSfx != null)
+            shootSfx.Play();
+        if (muzzleVFX != null)
+        {
+            muzzleVFX.SetActive(false); // 혹시 남아 있으면 먼저 껐다가
+            muzzleVFX.SetActive(true);  // 다시 켬(처음부터 재생)
+            StartCoroutine(DisableVFXAfterDelay());
+        }
+    }
+
+    IEnumerator DisableVFXAfterDelay()
+    {
+        yield return new WaitForSeconds(vfxDuration);
+        if (muzzleVFX != null)
+            muzzleVFX.SetActive(false);
     }
 
     // ==== 포탈 설치: PC/VR 모두 카메라 정면 Ray ====
@@ -89,7 +141,7 @@ public class PortalShooter : MonoBehaviour
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         }
-        else // VR: HMD(카메라) 정중앙 방향으로 Ray
+        else
         {
             if (Camera.main != null)
             {
@@ -162,5 +214,4 @@ public class PortalShooter : MonoBehaviour
             orangePortal.destinationPortal = bluePortalInstance.transform;
         }
     }
-
 }
