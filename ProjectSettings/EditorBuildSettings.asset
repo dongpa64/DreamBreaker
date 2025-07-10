@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/IntroScene.unity
     guid: eeb8d9c3d4c097d498381233f83058e9
   - enabled: 1
+    path: Assets/YWK/Scean/YWK_Scean.unity
+    guid: 0be1433a5d3fbca4397f3f52ed026d33
+  - enabled: 1
     path: Assets/Scenes/Perspective.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
