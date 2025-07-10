@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Photon.Pun;
 public class Grabber : MonoBehaviour
 {
     [Header("Grab Settings")]
@@ -47,6 +47,7 @@ public class Grabber : MonoBehaviour
                 GrabbableObject grabbable = hitInfo.collider.GetComponent<GrabbableObject>();
                 if (grabbable != null)
                 {
+                    grabbable.photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
                     currentGrabbedObject = grabbable;
                     currentGrabbedScalable = grabbable;
 

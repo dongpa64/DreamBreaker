@@ -17,10 +17,10 @@ TagManager:
   - Clickable
   - Ground
   - Player
-  - PortalSurfaceMask
+  - PortalSurface
+  - MaskLayer
+  - MaskRender
   - 
-  - 
-  - Aim
   - 
   - 
   - 
