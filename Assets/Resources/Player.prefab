@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 8743987744991116520}
   - component: {fileID: 1329096920861205177}
   - component: {fileID: 3570770745279492343}
+  - component: {fileID: 7774855101608069354}
   - component: {fileID: 4701761766292535741}
-  - component: {fileID: 7081960279511926040}
   - component: {fileID: -895216056113245970}
+  - component: {fileID: 7081960279511926040}
   - component: {fileID: 2827096211963543671}
   - component: {fileID: 3193364211865104514}
-  - component: {fileID: 5420834860588157584}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -143,6 +143,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7774855101608069354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284441910923290513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0161ee48bb67ba4e90eb6ffdbcc0f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPlatform: 1
+  moveSpeed: 2
+  jumpPower: 2
+  gravity: -9.81
+  turnSpeed: 30
 --- !u!114 &4701761766292535741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,19 +184,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   verticalLiftDistanceMultiplier: 1
---- !u!114 &7081960279511926040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2284441910923290513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18af0c5447fcfaa40b1defb1c487702f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraRig: {fileID: 4750089277539336749}
 --- !u!114 &-895216056113245970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,11 +203,24 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 7774855101608069354}
   - {fileID: 2827096211963543671}
-  - {fileID: 5420834860588157584}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7081960279511926040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284441910923290513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18af0c5447fcfaa40b1defb1c487702f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraRig: {fileID: 4750089277539336749}
 --- !u!114 &2827096211963543671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,24 +265,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   portalSize: {x: 1, y: 2}
---- !u!114 &5420834860588157584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2284441910923290513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 431b3799e4ff82e4e821910cdd9949ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPlatform: 1
-  moveSpeed: 2
-  jumpPower: 5
-  gravity: -9.81
-  turnSpeed: 30
-  vrCam: {fileID: 4750089277538852363}
 --- !u!1 &2309108535130787454
 GameObject:
   m_ObjectHideFlags: 0

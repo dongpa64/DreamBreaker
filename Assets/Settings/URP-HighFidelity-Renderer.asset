@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: MaskRenderer
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: MaskRenderer
     Event: 300
@@ -172,26 +172,23 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: RenderMask
-    Event: 600
+    Event: 250
     filterSettings:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 64
-      PassNames:
-      - 
-      - 
-    overrideMaterial: {fileID: 7390553463975553142, guid: 7ab6f3b0fd1a6ba41b2a47766c16613f,
-      type: 3}
+        m_Bits: 4096
+      PassNames: []
+    overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
     overrideShader: {fileID: 0}
     overrideShaderPassIndex: 0
     overrideMode: 1
-    overrideDepthState: 0
+    overrideDepthState: 1
     depthCompareFunction: 4
     enableWrite: 0
     stencilSettings:
-      overrideStencilState: 0
+      overrideStencilState: 1
       stencilReference: 1
       stencilCompareFunction: 8
       passOperation: 2
@@ -214,12 +211,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177ddeadd26a80641ad757c51fb7f5d1, type: 3}
   m_Name: OutlineFxFeature
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   _event: 600
   _solid: 0
   _thickness: 0.13
   _alphaCutout: 0.5
-  _mode: 1
+  _mode: 0
   _filter: 1
   _attachDepth: 1
   _output:

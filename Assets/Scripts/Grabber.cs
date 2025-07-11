@@ -1,6 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
-public class BGrabber : MonoBehaviour
+public class Grabber : MonoBehaviour
 {
     [Header("Grab Settings")]
     [SerializeField] private OVRInput.Button grabButton = OVRInput.Button.PrimaryIndexTrigger;
@@ -16,7 +16,7 @@ public class BGrabber : MonoBehaviour
 
     private IPerspectiveScalable currentGrabbedScalable;
     private GrabbableObject currentGrabbedObject;
-    
+
     private float initialGrabDistanceToCamera; // 물체를 잡는 순간의 카메라로부터의 초기 거리 (최소값으로 사용)
     private float currentDistanceToCamera; // 카메라로부터 물체가 유지하려는 목표 거리 (동적으로 변화)
     private Quaternion initialRotation; // 물체 잡을 때의 카메라 상대 회전 오프셋

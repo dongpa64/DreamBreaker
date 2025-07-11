@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public Transform[] spawnPoints;
-    
+    public PerspectiveScaler scaler;
     public static GameManager Instance { get; private set; }
     private void Awake()
     {
@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         // PhotonNetwork.Instantiate를 사용하여 네트워크 플레이어 오브젝트 생성
         var obj = PhotonNetwork.Instantiate("Player", spawnPosition, Quaternion.identity);
         var vrCam = obj.transform.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
-        PerspectiveScaler scaler = GameObject.FindWithTag("Grabbable").GetComponent<PerspectiveScaler>();
         scaler.SetVrCamera(vrCam);
     }
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)

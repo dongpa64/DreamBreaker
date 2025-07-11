@@ -11,12 +11,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public string sceneName = "Perspective";
     LobbyManager Instance { get; set; }
     [Header("UI")]
+    public Button joinButton;         // 입장 버튼
     public TMP_Text statusText;           // 안내 메시지
 
     
     void Start()
     {
-        statusText.text = "Server Login...";
+        statusText.text = "Photon Login...";
+        joinButton.interactable = false;
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.AutomaticallySyncScene = true;
     }
@@ -26,6 +28,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         statusText.text = "Photon Linked!";
+        joinButton.interactable = true;
         OnClickJoin();
     }
 
@@ -34,11 +37,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (statusText != null)
             statusText.text = $"Disconnected: {cause}";
+        joinButton.interactable = false;
     }
 
     // 입장 버튼 클릭 시 호출
     public void OnClickJoin()
     {
+        joinButton.interactable = false;
         statusText.text = "Matching...";
         PhotonNetwork.JoinRandomRoom(); // 빈 방이 있으면 입장, 없으면 새 방 생성
     }
@@ -46,7 +51,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // 빈 방이 없을 때 새 방 생성
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        statusText.text = "Create New Room";
+        statusText.text = "Create New Room...";
         RoomOptions options = new RoomOptions { MaxPlayers = 2 };
         PhotonNetwork.CreateRoom("Dream", options);
     }
@@ -54,7 +59,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // 룸에 입장 성공
     public override void OnJoinedRoom()
     {
-        statusText.text = "Wait For Another Player";
+        statusText.text = "Success!";
         if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount)
         {
             if(PhotonNetwork.IsMasterClient) 
@@ -65,7 +70,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // 다른 플레이어가 입장했을 때(2명 됐을 때)
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        statusText.text = "Second Player!\nGoto Tut!";
+        statusText.text = "두 번째 플레이어 입장!\n튜토리얼 맵 이동!";
         if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount)
         {
             if (PhotonNetwork.IsMasterClient)
@@ -77,7 +82,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     void MoveScene()
     {
         if (statusText != null)
-            statusText.text = "Welcome!";
+            statusText.text = "Go!";
         if(photonView.IsMine)
             PhotonNetwork.LoadLevel(sceneName);
     }

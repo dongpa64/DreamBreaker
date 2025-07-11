@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static BPlayerMovement;
+using static PlayerMovement;
 
 public class PortalShooter : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class PortalShooter : MonoBehaviour
 
     public LayerMask portalSurfaceMask;
 
-    private BPlayerMovement playerMovement;
+    private PlayerMovement playerMovement;
 
     [Header("포탈 쿼드 크기(단위: 미터)")]
     public Vector2 portalSize = new Vector2(1.0f, 2.0f);
@@ -33,7 +33,7 @@ public class PortalShooter : MonoBehaviour
 
     void Start()
     {
-        playerMovement = FindFirstObjectByType<BPlayerMovement>();
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
 
         // 총과 PortalShooter 비활성화
         if (portalGunModel != null)

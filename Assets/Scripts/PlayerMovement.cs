@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using Photon.Pun;
 
-public class BPlayerMovement : MonoBehaviourPun, IPunObservable
+public class PlayerMovement : MonoBehaviourPun, IPunObservable
 {
     public enum PlatformType { PC, Oculus, Vive }
     public PlatformType currentPlatform = PlatformType.PC;
@@ -13,7 +13,7 @@ public class BPlayerMovement : MonoBehaviourPun, IPunObservable
     public float gravity = -9.81f;
 
     public float turnSpeed = 30f; // 부드러운 회전 속도
-    public Transform vrCam;
+
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
@@ -72,8 +72,9 @@ public class BPlayerMovement : MonoBehaviourPun, IPunObservable
                     break;
             }
             // 카메라 기준 방향 구하기
-            Vector3 camForward = vrCam.forward;
-            Vector3 camRight = vrCam.right;
+            Transform cam = Camera.main.transform;
+            Vector3 camForward = cam.forward;
+            Vector3 camRight = cam.right;
 
             // 수평 방향만 고려
             camForward.y = 0;
