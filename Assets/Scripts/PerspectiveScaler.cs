@@ -4,7 +4,7 @@ public class PerspectiveScaler : MonoBehaviour
 {
     [SerializeField] private float minApparentScale = 0.1f;
     [SerializeField] private float maxApparentScale = 20.0f;
-    [SerializeField] private Transform vrCamera; // 인스펙터에서 VR 카메라 할당
+    [SerializeField] private Transform vrCam;
     private IPerspectiveScalable scalableObject; // IPerspectiveScalable 인터페이스 참조
 
     void Awake()
@@ -18,7 +18,8 @@ public class PerspectiveScaler : MonoBehaviour
         // IPerspectiveScalable의 IsScalingEnabled 플래그에 따라 스케일 조절
         if (scalableObject.IsScalingEnabled)
         {
-            float currentDistanceToCamera = Vector3.Distance(scalableObject.ScalableTransform.position, vrCamera.position);
+
+            float currentDistanceToCamera = Vector3.Distance(scalableObject.ScalableTransform.position, vrCam.position);
 
             // new_scale = initial_scale * (current_distance / initial_distance)
             float scaleFactor = currentDistanceToCamera / scalableObject.InitialGrabDistanceToCamera;
@@ -34,9 +35,9 @@ public class PerspectiveScaler : MonoBehaviour
         }
     }
 
-    // VR 카메라를 외부에서 설정할 수 있는 메서드 (Grabber에서 호출)
+    // VR 카메라를 외부에서 설정할 수 있는 메서드 (GameManager에서 호출)
     public void SetVrCamera(Transform cameraTransform)
     {
-        vrCamera = cameraTransform;
+        vrCam = cameraTransform;
     }
 }

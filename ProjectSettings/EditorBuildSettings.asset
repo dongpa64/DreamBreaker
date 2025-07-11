@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PortalScene.unity
     guid: 1d45bf67a6fd5e84cb0277e373e27b30
+  - enabled: 1
+    path: Assets/YWK/Scean/YWK_Scean.unity
+    guid: 0be1433a5d3fbca4397f3f52ed026d33
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 4a6a837f8301e1a42a43bf3e97fc9324,
       type: 2}
