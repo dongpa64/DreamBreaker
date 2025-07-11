@@ -5,8 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Grabbable
+<<<<<<< HEAD
   - BluePortal
   - OrangePortal
+=======
+  - Ground
+  - IceSurface
+>>>>>>> main
   layers:
   - Default
   - TransparentFX

@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cb4b4540b836c59489f9058f2a04f227, type: 2}
+  - {fileID: 2100000, guid: 946e07550ee5a0540924a8dbe6ce02a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,10 +119,13 @@ GameObject:
   - component: {fileID: 5645062609162934213}
   - component: {fileID: 8846937783732494687}
   - component: {fileID: 8767516123384252601}
+<<<<<<< HEAD:Assets/Resources/OrangePortal.prefab
   - component: {fileID: 6023826210375469489}
   - component: {fileID: 8476297295826737778}
   - component: {fileID: 5984473889421392033}
   - component: {fileID: 6869050937418216658}
+=======
+>>>>>>> main:Assets/LJY/Prefabs/PortalOrange.prefab
   m_Layer: 11
   m_Name: OrangePortal
   m_TagString: OrangePortal
@@ -143,9 +146,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2704014115442823708}
   - {fileID: 4881692964906993901}
-  - {fileID: 7677122152968700557}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8846937783732494687
@@ -185,6 +186,7 @@ MonoBehaviour:
   ownerActorNumber: 2
   destinationPortal: {fileID: 4627037817163822597, guid: a1fbae983ce77e748bdbe816afda1680,
     type: 3}
+<<<<<<< HEAD:Assets/Resources/OrangePortal.prefab
 --- !u!114 &6023826210375469489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,3 +581,5 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+=======
+>>>>>>> main:Assets/LJY/Prefabs/PortalOrange.prefab

@@ -11,6 +11,12 @@ public class PerspectiveScaler : MonoBehaviour
     {
         scalableObject = GetComponent<IPerspectiveScalable>();
 
+        if (vrCamera == null)
+        {
+            Debug.LogError("VR Camera not assigned to PerspectiveScaler.");
+            enabled = false;
+            return;
+        }
     }
 
     void Update()
