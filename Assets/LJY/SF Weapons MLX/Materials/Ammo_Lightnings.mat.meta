@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0b94d3f829e1b1e4c8ec77e2379b2c1a
+timeCreated: 1445078401
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 100188
+  packageName: Lightning Gun Sci-Fi Weapon
+  packageVersion: 1.0
+  assetPath: Assets/SF Weapons MLX/Materials/Ammo_Lightnings.mat
+  uploadId: 201006
