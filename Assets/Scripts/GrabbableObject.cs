@@ -1,8 +1,7 @@
 using OutlineFx;
 using UnityEngine;
-using Photon.Pun;
 
-public class GrabbableObject : MonoBehaviourPun, IPerspectiveScalable
+public class GrabbableObject : MonoBehaviour, IPerspectiveScalable
 {
     // IPerspectiveScalable 인터페이스 구현
     public Transform ScalableTransform => transform;
