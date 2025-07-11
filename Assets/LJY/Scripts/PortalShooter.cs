@@ -5,19 +5,23 @@ using static PlayerMovement;
 
 public class PortalShooter : MonoBehaviour
 {
+    [Header("포탈 프리팹")]
     public GameObject bluePortalprefab;
     public GameObject orangePortalprefab;
-    public Transform cameraAimPointer;
+
+    [Header("카메라 에임 포인터 프리팹")]
+    public GameObject cameraAimPointerPrefab; // 반드시 프리팹만 등록(씬에 두지 않기)
+    private Transform cameraAimPointerInstance; // 인스턴스 저장용
 
     [Header("총 모델 오브젝트 (PortalGun)")]
-    public GameObject portalGunModel; // Inspector에서 할당
+    public GameObject portalGunModel;
 
     [Header("포탈 총구 VFX (SetActive 방식)")]
-    public GameObject muzzleVFX; // Muzzle 자식에 배치된 VFX 프리팹
-    public float vfxDuration = 0.5f; // 이펙트가 나오는 시간(필요시 조정)
+    public GameObject muzzleVFX;
+    public float vfxDuration = 0.5f;
 
     [Header("포탈 발사 사운드")]
-    public AudioSource shootSfx; // Inspector에서 AudioSource 할당
+    public AudioSource shootSfx;
 
     private GameObject bluePortalInstance;
     private GameObject orangePortalInstance;
@@ -35,31 +39,54 @@ public class PortalShooter : MonoBehaviour
     {
         playerMovement = FindFirstObjectByType<PlayerMovement>();
 
-        // 총과 PortalShooter 비활성화
         if (portalGunModel != null)
             portalGunModel.SetActive(false);
 
-        // 시작시 VFX 꺼두기
         if (muzzleVFX != null)
             muzzleVFX.SetActive(false);
 
+        // 포인터는 필요할 때 생성!
         enabled = false;
     }
 
-    // 아이템 먹을 때 호출!
+    // --- 아이템 먹을 때 호출 ---
     public void ActivatePortalShooter()
     {
         if (portalGunModel != null)
             portalGunModel.SetActive(true);
+
+        // 에임 포인터가 없다면 프리팹에서 인스턴스 생성
+        if (cameraAimPointerInstance == null && cameraAimPointerPrefab != null)
+        {
+            cameraAimPointerInstance = Instantiate(cameraAimPointerPrefab, transform).transform;
+            cameraAimPointerInstance.gameObject.SetActive(true);
+        }
+
         enabled = true;
+    }
+
+    // --- 포탈건 비활성화 시 호출 ---
+    public void DeactivatePortalShooter()
+    {
+        if (portalGunModel != null)
+            portalGunModel.SetActive(false);
+
+        // 에임 포인터 오브젝트 삭제
+        if (cameraAimPointerInstance != null)
+        {
+            Destroy(cameraAimPointerInstance.gameObject);
+            cameraAimPointerInstance = null;
+        }
+
+        enabled = false;
     }
 
     void Update()
     {
         var platform = playerMovement ? playerMovement.currentPlatform : PlatformType.PC;
 
-        // ===== 에임 포인터 실시간 위치 이동 =====
-        if (cameraAimPointer != null && Camera.main != null)
+        // ===== 에임 포인터 위치 실시간 이동 =====
+        if (cameraAimPointerInstance != null && Camera.main != null)
         {
             float rayLength = 5.0f;
             Vector3 camPos = Camera.main.transform.position;
@@ -68,14 +95,16 @@ public class PortalShooter : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(camPos, camDir, out hit, rayLength, portalSurfaceMask))
             {
-                cameraAimPointer.position = hit.point;
+                cameraAimPointerInstance.position = hit.point;
             }
             else
             {
-                cameraAimPointer.position = camPos + camDir * rayLength;
+                cameraAimPointerInstance.position = camPos + camDir * rayLength;
             }
-            cameraAimPointer.forward = camDir;
-            Debug.DrawRay(camPos, camDir * rayLength, Color.cyan, 0f, false);
+            cameraAimPointerInstance.forward = camDir;
+
+            // (선택) 크기 고정
+            cameraAimPointerInstance.localScale = Vector3.one * 0.05f;
         }
 
         // ===== 입력 처리(PC/VR) =====
@@ -88,9 +117,7 @@ public class PortalShooter : MonoBehaviour
                 else
                     TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
 
-                // 발사 사운드 & 총구 이펙트!
                 PlayShootEffects();
-
                 useBlueNext = !useBlueNext;
             }
         }
@@ -105,9 +132,7 @@ public class PortalShooter : MonoBehaviour
                 else
                     TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
 
-                // 발사 사운드 & 총구 이펙트!
                 PlayShootEffects();
-
                 useBlueNext = !useBlueNext;
             }
         }
@@ -119,8 +144,8 @@ public class PortalShooter : MonoBehaviour
             shootSfx.Play();
         if (muzzleVFX != null)
         {
-            muzzleVFX.SetActive(false); // 혹시 남아 있으면 먼저 껐다가
-            muzzleVFX.SetActive(true);  // 다시 켬(처음부터 재생)
+            muzzleVFX.SetActive(false);
+            muzzleVFX.SetActive(true);
             StartCoroutine(DisableVFXAfterDelay());
         }
     }
