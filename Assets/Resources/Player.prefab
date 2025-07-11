@@ -249,6 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8968cd69dc1434990db2162885f8af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPortalType: 0
   bluePortalprefab: {fileID: 1771192861429878327, guid: a1fbae983ce77e748bdbe816afda1680,
     type: 3}
   orangePortalprefab: {fileID: 4174940616298587962, guid: 83576567df35a864d914c4bf3381972e,
@@ -256,7 +257,7 @@ MonoBehaviour:
   cameraAimPointerPrefab: {fileID: 1325960677701395151, guid: 608fbcef7181bc74ba068bd116885769,
     type: 3}
   portalGunModel: {fileID: 6216389344136695727}
-  muzzleVFX: {fileID: 3090133473865946671}
+  muzzleVFX: {fileID: 0}
   vfxDuration: 0.5
   shootSfx: {fileID: 5587914834652063174}
   portalSurfaceMask:
@@ -465,7 +466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -753,12 +754,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab652dc037ef5dc4cba99be2daae3ccb, type: 3}
---- !u!1 &3090133473865946671 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8981101356331975202, guid: ab652dc037ef5dc4cba99be2daae3ccb,
-    type: 3}
-  m_PrefabInstance: {fileID: 6215271072072242189}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &5587914834652063174 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 2003353013396369867, guid: ab652dc037ef5dc4cba99be2daae3ccb,

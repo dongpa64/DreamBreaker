@@ -41,6 +41,8 @@ MonoBehaviour:
   - GotoTutorial
   - RespawnSpaceship
   - MoveScene
+  - SyncPortalConnection
+  - SetMyPortalType
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

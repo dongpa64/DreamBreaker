@@ -576,6 +576,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7774855101608069354, guid: 5cdb854c4c792394782a5becb68181fc,
+        type: 3}
+      propertyPath: currentPlatform
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -732,7 +737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCount: 2
-  sceneName: YWK_Scean
+  sceneName: PortalScene
   joinButton: {fileID: 1483639873}
   statusText: {fileID: 224459705}
 --- !u!4 &553596394

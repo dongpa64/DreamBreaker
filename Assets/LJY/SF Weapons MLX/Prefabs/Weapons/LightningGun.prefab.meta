@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ab652dc037ef5dc4cba99be2daae3ccb
+timeCreated: 1504901292
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 100188
+  packageName: Lightning Gun Sci-Fi Weapon
+  packageVersion: 1.0
+  assetPath: Assets/SF Weapons MLX/Prefabs/Weapons/LightningGun.prefab
+  uploadId: 201006

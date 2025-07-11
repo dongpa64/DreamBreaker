@@ -1,17 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using static PlayerMovement;
 
-public class PortalShooter : MonoBehaviour
+public class PortalShooter : MonoBehaviourPun
 {
+    public enum PortalType { Blue, Orange }
+    [Header("포탈 타입 (자동 할당, 인스펙터 기본값 무시)")]
+    public PortalType myPortalType;
+
     [Header("포탈 프리팹")]
     public GameObject bluePortalprefab;
     public GameObject orangePortalprefab;
 
     [Header("카메라 에임 포인터 프리팹")]
-    public GameObject cameraAimPointerPrefab; // 반드시 프리팹만 등록(씬에 두지 않기)
-    private Transform cameraAimPointerInstance; // 인스턴스 저장용
+    public GameObject cameraAimPointerPrefab;
+    private Transform cameraAimPointerInstance;
 
     [Header("총 모델 오브젝트 (PortalGun)")]
     public GameObject portalGunModel;
@@ -23,9 +27,7 @@ public class PortalShooter : MonoBehaviour
     [Header("포탈 발사 사운드")]
     public AudioSource shootSfx;
 
-    private GameObject bluePortalInstance;
-    private GameObject orangePortalInstance;
-
+    private GameObject myPortalInstance; // 내 포탈만 관리
     public LayerMask portalSurfaceMask;
 
     private PlayerMovement playerMovement;
@@ -33,20 +35,23 @@ public class PortalShooter : MonoBehaviour
     [Header("포탈 쿼드 크기(단위: 미터)")]
     public Vector2 portalSize = new Vector2(1.0f, 2.0f);
 
-    private bool useBlueNext = true;
-
     void Start()
     {
         playerMovement = FindFirstObjectByType<PlayerMovement>();
 
-        if (portalGunModel != null)
-            portalGunModel.SetActive(false);
+        // [중요] 내 플레이어라면 타입을 직접 할당!
+        if (photonView.IsMine)
+        {
+            myPortalType = (PhotonNetwork.LocalPlayer.ActorNumber == 1)
+                ? PortalType.Blue
+                : PortalType.Orange;
+            Debug.Log($"[PortalShooter] 내 포탈타입 자동 할당: {myPortalType}, ActorNumber={PhotonNetwork.LocalPlayer.ActorNumber}");
+        }
 
-        if (muzzleVFX != null)
-            muzzleVFX.SetActive(false);
+        if (portalGunModel != null) portalGunModel.SetActive(false);
+        if (muzzleVFX != null) muzzleVFX.SetActive(false);
 
-        // 포인터는 필요할 때 생성!
-        enabled = false;
+        enabled = false; // 아이템 먹을 때만 활성화
     }
 
     // --- 아이템 먹을 때 호출 ---
@@ -55,7 +60,6 @@ public class PortalShooter : MonoBehaviour
         if (portalGunModel != null)
             portalGunModel.SetActive(true);
 
-        // 에임 포인터가 없다면 프리팹에서 인스턴스 생성
         if (cameraAimPointerInstance == null && cameraAimPointerPrefab != null)
         {
             cameraAimPointerInstance = Instantiate(cameraAimPointerPrefab, transform).transform;
@@ -65,24 +69,23 @@ public class PortalShooter : MonoBehaviour
         enabled = true;
     }
 
-    // --- 포탈건 비활성화 시 호출 ---
     public void DeactivatePortalShooter()
     {
         if (portalGunModel != null)
             portalGunModel.SetActive(false);
 
-        // 에임 포인터 오브젝트 삭제
         if (cameraAimPointerInstance != null)
         {
             Destroy(cameraAimPointerInstance.gameObject);
             cameraAimPointerInstance = null;
         }
-
         enabled = false;
     }
 
     void Update()
     {
+        if (!photonView.IsMine) return; // 내 플레이어만 조작
+
         var platform = playerMovement ? playerMovement.currentPlatform : PlatformType.PC;
 
         // ===== 에임 포인터 위치 실시간 이동 =====
@@ -94,54 +97,31 @@ public class PortalShooter : MonoBehaviour
 
             RaycastHit hit;
             if (Physics.Raycast(camPos, camDir, out hit, rayLength, portalSurfaceMask))
-            {
                 cameraAimPointerInstance.position = hit.point;
-            }
             else
-            {
                 cameraAimPointerInstance.position = camPos + camDir * rayLength;
-            }
-            cameraAimPointerInstance.forward = camDir;
 
-            // (선택) 크기 고정
+            cameraAimPointerInstance.forward = camDir;
             cameraAimPointerInstance.localScale = Vector3.one * 0.05f;
         }
 
         // ===== 입력 처리(PC/VR) =====
+        bool shootInput = false;
         if (platform == PlatformType.PC)
+            shootInput = Input.GetMouseButtonDown(1);
+        else
+            shootInput = ARAVRInput.GetDown(ARAVRInput.Button.IndexTrigger, ARAVRInput.Controller.LTouch);
+
+        if (shootInput)
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-                if (useBlueNext)
-                    TryPlacePortal(ref bluePortalInstance, bluePortalprefab, platform);
-                else
-                    TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
-
-                PlayShootEffects();
-                useBlueNext = !useBlueNext;
-            }
-        }
-        else // VR (오큘러스 등)
-        {
-            bool triggerPressed = ARAVRInput.GetDown(ARAVRInput.Button.IndexTrigger, ARAVRInput.Controller.LTouch);
-
-            if (triggerPressed)
-            {
-                if (useBlueNext)
-                    TryPlacePortal(ref bluePortalInstance, bluePortalprefab, platform);
-                else
-                    TryPlacePortal(ref orangePortalInstance, orangePortalprefab, platform);
-
-                PlayShootEffects();
-                useBlueNext = !useBlueNext;
-            }
+            TryPlaceMyPortal(platform);
+            PlayShootEffects();
         }
     }
 
     void PlayShootEffects()
     {
-        if (shootSfx != null)
-            shootSfx.Play();
+        if (shootSfx != null) shootSfx.Play();
         if (muzzleVFX != null)
         {
             muzzleVFX.SetActive(false);
@@ -157,28 +137,22 @@ public class PortalShooter : MonoBehaviour
             muzzleVFX.SetActive(false);
     }
 
-    // ==== 포탈 설치: PC/VR 모두 카메라 정면 Ray ====
-    void TryPlacePortal(ref GameObject portalInstance, GameObject portalPrefab, PlatformType platform)
+    // ==== 내 포탈만 설치: PC/VR 모두 카메라 정면 Ray ====
+    void TryPlaceMyPortal(PlatformType platform)
     {
         Ray ray;
-
         if (platform == PlatformType.PC)
-        {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        }
         else
         {
-            if (Camera.main != null)
-            {
-                Vector3 camPos = Camera.main.transform.position;
-                Vector3 camDir = Camera.main.transform.forward;
-                ray = new Ray(camPos, camDir);
-            }
-            else
+            if (Camera.main == null)
             {
                 Debug.LogWarning("Camera.main을 찾을 수 없습니다!");
                 return;
             }
+            Vector3 camPos = Camera.main.transform.position;
+            Vector3 camDir = Camera.main.transform.forward;
+            ray = new Ray(camPos, camDir);
         }
 
         RaycastHit hit;
@@ -216,27 +190,33 @@ public class PortalShooter : MonoBehaviour
                 return;
             }
 
+            // 기존 내 포탈 네트워크상에서 제거
+            if (myPortalInstance != null)
+                PhotonNetwork.Destroy(myPortalInstance);
+
+            // 내 타입에 맞는 프리팹
+            GameObject prefab = (myPortalType == PortalType.Blue) ? bluePortalprefab : orangePortalprefab;
             Vector3 position = center;
             Quaternion rotation = Quaternion.LookRotation(-hit.normal);
 
-            if (portalInstance != null)
-                Destroy(portalInstance);
+            // 네트워크상에서 포탈 생성
+            myPortalInstance = PhotonNetwork.Instantiate(prefab.name, position, rotation);
 
-            portalInstance = Instantiate(portalPrefab, position, rotation);
-
-            UpdatePortalConnections();
+            // 생성 후 owner/type 동기화, 쌍 연결 시도
+            photonView.RPC("SetMyPortalType", RpcTarget.AllBuffered,
+                myPortalInstance.GetComponent<PhotonView>().ViewID, (int)myPortalType, PhotonNetwork.LocalPlayer.ActorNumber);
         }
     }
 
-    void UpdatePortalConnections()
+    [PunRPC]
+    void SetMyPortalType(int portalViewID, int portalTypeInt, int actorNum)
     {
-        if (bluePortalInstance != null && orangePortalInstance != null)
+        GameObject portalObj = PhotonView.Find(portalViewID).gameObject;
+        var p = portalObj.GetComponent<Portal>();
+        if (p != null)
         {
-            var bluePortal = bluePortalInstance.GetComponent<Portal>();
-            var orangePortal = orangePortalInstance.GetComponent<Portal>();
-
-            bluePortal.destinationPortal = orangePortalInstance.transform;
-            orangePortal.destinationPortal = bluePortalInstance.transform;
+            p.SetOwnerAndType(actorNum, (Portal.PortalType)portalTypeInt);
+            p.TryAutoConnect(); // 쌍 연결 시도
         }
     }
 }
