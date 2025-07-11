@@ -156,10 +156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlatform: 1
-  moveSpeed: 2
-  jumpPower: 2
+  moveSpeed: 5
+  jumpPower: 1
   gravity: -9.81
-  turnSpeed: 30
+  turnSpeed: 60
 --- !u!114 &4701761766292535741
 MonoBehaviour:
   m_ObjectHideFlags: 0
