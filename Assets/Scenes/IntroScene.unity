@@ -737,7 +737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCount: 2
-  sceneName: PortalScene
+  sceneName: YWK_Scean
   joinButton: {fileID: 1483639873}
   statusText: {fileID: 224459705}
 --- !u!4 &553596394
