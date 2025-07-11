@@ -205,7 +205,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7774855101608069354}
   - {fileID: 2827096211963543671}
-  sceneViewId: 0
+  sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &7081960279511926040
@@ -256,8 +256,7 @@ MonoBehaviour:
   cameraAimPointerPrefab: {fileID: 1325960677701395151, guid: 608fbcef7181bc74ba068bd116885769,
     type: 3}
   portalGunModel: {fileID: 6216389344136695727}
-  muzzleVFX: {fileID: 2108268638748165533, guid: 491b8b2b7b7d4ef4dbc68bbc63783967,
-    type: 3}
+  muzzleVFX: {fileID: 3090133473865946671}
   vfxDuration: 0.5
   shootSfx: {fileID: 5587914834652063174}
   portalSurfaceMask:
@@ -754,6 +753,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab652dc037ef5dc4cba99be2daae3ccb, type: 3}
+--- !u!1 &3090133473865946671 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8981101356331975202, guid: ab652dc037ef5dc4cba99be2daae3ccb,
+    type: 3}
+  m_PrefabInstance: {fileID: 6215271072072242189}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &5587914834652063174 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 2003353013396369867, guid: ab652dc037ef5dc4cba99be2daae3ccb,

@@ -58,7 +58,7 @@ MonoBehaviour:
   - name: SnowColor
     path: SnowColor
     tooltip: 
-    space: 0
+    space: -1
     spaceable: 0
     sheetType: m_Vector4f
     realType: Color

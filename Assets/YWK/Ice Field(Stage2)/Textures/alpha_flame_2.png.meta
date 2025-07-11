@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 618933968ed48a143a8ee3e0071a5394
+guid: 4e51ffaf2dd45a34a92609eb9f0e5b56
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -55,10 +55,10 @@ TextureImporter:
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: 0
-  textureShape: 4
+  textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
-  flipbookColumns: 4
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
@@ -117,5 +117,5 @@ AssetOrigin:
   productId: 293962
   packageName: VFX Magical Flames
   packageVersion: 1.0
-  assetPath: Assets/Lyrebird-Studio/VFX/Magical Flames/Art/Textures/snowflakes_sheet.png
+  assetPath: Assets/YWK/Ice Field(Stage2)/Textures/alpha_flame_2.png
   uploadId: 686856

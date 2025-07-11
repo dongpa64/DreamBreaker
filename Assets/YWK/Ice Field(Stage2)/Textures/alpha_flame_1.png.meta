@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e51ffaf2dd45a34a92609eb9f0e5b56
+guid: c8b09feb38117a14aa4edef67c98b13b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,5 +117,5 @@ AssetOrigin:
   productId: 293962
   packageName: VFX Magical Flames
   packageVersion: 1.0
-  assetPath: Assets/Lyrebird-Studio/VFX/Magical Flames/Art/Textures/alpha_flame_2.png
+  assetPath: Assets/YWK/Ice Field(Stage2)/Textures/alpha_flame_1.png
   uploadId: 686856

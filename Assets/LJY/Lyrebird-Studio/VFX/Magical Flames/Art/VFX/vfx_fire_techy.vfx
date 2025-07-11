@@ -54,7 +54,7 @@ MonoBehaviour:
   - name: Fire_OutsideColor
     path: Fire_OutsideColor
     tooltip: 
-    space: -1
+    space: 0
     spaceable: 0
     sheetType: m_Vector4f
     realType: Color

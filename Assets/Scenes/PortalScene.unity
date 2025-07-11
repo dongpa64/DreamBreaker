@@ -1304,6 +1304,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -895216056113245970, guid: 5cdb854c4c792394782a5becb68181fc,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2276325668668374065, guid: 5cdb854c4c792394782a5becb68181fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1359,11 +1364,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3193364211865104514, guid: 5cdb854c4c792394782a5becb68181fc,
+        type: 3}
+      propertyPath: muzzleVFX
+      value: 
+      objectReference: {fileID: 1898040513}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cdb854c4c792394782a5becb68181fc, type: 3}
+--- !u!1 &1898040513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3090133473865946671, guid: 5cdb854c4c792394782a5becb68181fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1898040512}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1927164327
 PrefabInstance:
   m_ObjectHideFlags: 0
