@@ -43,6 +43,8 @@ MonoBehaviour:
   - MoveScene
   - SyncPortalConnection
   - SetMyPortalType
+  - DestroyMe
+  - RemoveWall
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
