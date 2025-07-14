@@ -10,15 +10,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public int playerCount = 2;
     public string sceneName = "Perspective";
     LobbyManager Instance { get; set; }
-    [Header("UI")]
-    public Button joinButton;         // 입장 버튼
     public TMP_Text statusText;           // 안내 메시지
 
     
     void Start()
     {
         statusText.text = "Photon Login...";
-        joinButton.interactable = false;
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.AutomaticallySyncScene = true;
     }
@@ -28,7 +25,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         statusText.text = "Photon Linked!";
-        joinButton.interactable = true;
         OnClickJoin();
     }
 
@@ -37,13 +33,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (statusText != null)
             statusText.text = $"Disconnected: {cause}";
-        joinButton.interactable = false;
     }
 
     // 입장 버튼 클릭 시 호출
     public void OnClickJoin()
     {
-        joinButton.interactable = false;
         statusText.text = "Matching...";
         PhotonNetwork.JoinRandomRoom(); // 빈 방이 있으면 입장, 없으면 새 방 생성
     }
